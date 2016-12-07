@@ -103,14 +103,15 @@ class Application:
 
 	self.indicator.create_menu(pt,"")
 	self.indicator.add_menu_item(lambda x: Gtk.main_quit(), "Quit")
+	return True
 
     def __init__(self):
         self.deficon = "lock.png"
         self.indicator = Indicator(self.deficon)
         self.populate_menu_items()
 
-	#FIXME: this seems to work only once..? check for new entries after 5 minutes
-        self.indicator.set_refresh(300*1000, self.populate_menu_items)
+	#check for new and removed entries every 15 seconds
+        self.indicator.set_refresh(15*1000, self.populate_menu_items)
         self.indicator.icon.set_has_tooltip(True)
         self.indicator.icon.connect("query-tooltip", self.tooltip_query)
 
